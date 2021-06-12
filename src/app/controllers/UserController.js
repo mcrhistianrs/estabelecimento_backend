@@ -58,6 +58,22 @@ class UserController{
                 return res.status(400).json({error:"Validation fails"});
             };
     
+            const user = await User.findByPk(req.userId);
+    
+            const { email,oldPassword} = req.body;
+            if(email !== user.email && email !== undefined){
+                const userExists  = await User.findOne({where: {email}});
+                if(userExists){
+                    return res.status(400).json({"error":"This email was registered by another user"});
+                }
+            }
+    
+            if(oldPassword &&  !( await user.checkPassword(oldPassword))){
+                return res.status(401).json({error:"Password does not match"});
+            }
+    
+            return res.json(await user.update(req.body));
+            
             
         } catch (error) {
             return res.json(false);
