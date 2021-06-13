@@ -1,5 +1,6 @@
 import Estabelecimento from '../models/Estabelecimento'
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 class EstabelecimentoController{
 
@@ -7,7 +8,8 @@ class EstabelecimentoController{
         try{
             const schema = Yup.object().shape({
                 nome: Yup.string().required(),
-                descricao: Yup.string().required(),                
+                descricao: Yup.string().required(),  
+                user_id: Yup.number().required()              
             });
             if (!(await schema.isValid(req.body))){
                 return res.status(400).json({status:"Validation fails"});
@@ -48,7 +50,7 @@ class EstabelecimentoController{
                     descricao: Yup.string().required(),
                 });
                 if (!(await schema.isValid(req.body))){
-                    return res.status(400).json({error:"Validation fails"});
+                    return res.status(400).json({status:"Validation fails"});
                 };
         
                 const estabelecimento = await Estabelecimento.findByPk(id);
@@ -82,6 +84,27 @@ class EstabelecimentoController{
                 return res.status(400).json({status:false});
             }
         } catch(error) {
+            return res.status(400).json({status:false});
+        }
+    }
+
+    async search(req,res){
+        try {
+            const { nome } = req.body
+            if(nome){
+                const all = await Estabelecimento.findAll({
+                    where:{
+                        nome:{
+                            [Op.like]:`%${nome}%`
+                        }
+                    }
+                })    
+                return res.json(all);
+            }
+            else{
+                return res.status(400).json({status:false});
+            }            
+        } catch (error) {
             return res.status(400).json({status:false});
         }
     }

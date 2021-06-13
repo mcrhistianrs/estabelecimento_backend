@@ -26,7 +26,9 @@ routes.delete('/users/delete/:id'               ,UserController.delete);
 routes.post('/estabelecimento/create'           ,EstabelecimentoController.create);
 routes.get('/estabelecimento/retrieve/:id'      ,EstabelecimentoController.retrieve);
 routes.put('/estabelecimento/retrieve/:id'      ,EstabelecimentoController.update);
-routes.delete('/estabelecimento/retrieve/:id'   ,EstabelecimentoController.delete);
+routes.delete('/estabelecimento/delete/:id'   ,EstabelecimentoController.delete);
+routes.get('/estabelecimento/search'            ,EstabelecimentoController.search);
+
 
 
 

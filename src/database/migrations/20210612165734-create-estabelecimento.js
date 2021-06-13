@@ -13,7 +13,7 @@ module.exports = {
       user_id:{
         type: Sequelize.INTEGER,
         references:{model: 'users' , key: 'id'},
-        allowNull : true,
+        allowNull : false,
       },
       nome:{
         type: Sequelize.STRING(32),

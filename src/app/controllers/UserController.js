@@ -23,7 +23,6 @@ class UserController{
             const user = await User.create(req.body);
             return res.json(user);
         }catch(error){
-            console.log(error);
             return res.status(400).json({status:false});
         }
     }
@@ -55,7 +54,7 @@ class UserController{
                 confirmPassword: Yup.string().when('password'   , (password,field)      => password     ? field.required().oneOf([Yup.ref('password')]):field)
             });
             if (!(await schema.isValid(req.body))){
-                return res.status(400).json({error:"Validation fails"});
+                return res.status(400).json({status:"Validation fails"});
             };
     
             const user = await User.findByPk(req.userId);
