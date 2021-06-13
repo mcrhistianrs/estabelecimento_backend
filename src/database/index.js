@@ -2,10 +2,12 @@ import Sequelize                from 'sequelize';
 import databaseConfig           from '../config/database';
 
 import User                     from '../app/models/Users';
+import Estabelecimento          from '../app/models/Estabelecimento';
 
 
 const models = [
 User,
+Estabelecimento
 ];
 
 class Database{

@@ -103,17 +103,5 @@ class UserController{
         }
     }
 
-    async search(req,res){
-        try {
-            const usuario =  await User.findOne({
-                where:{
-                    email:req.query.email
-                }
-            })
-            return res.json(usuario)
-        } catch (error) {
-            return res.status(400).json(false);
-        }
-    }
 }
 export default new UserController();
