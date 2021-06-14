@@ -221,7 +221,7 @@ describe('Happy Flow', ()=>{
         .set({
             "Authorization" : "Bearer " + session_response.body.token
         })
-        .send({
+        .query({
             "nome": "r"
         })
 
@@ -465,7 +465,7 @@ describe('Unhappy Flow', ()=>{
         .set({
             "Authorization" : "Bearer " + session_response.body.token
         })
-        .send({
+        .query({
             "nome": "z"
         })
 

@@ -90,7 +90,7 @@ class EstabelecimentoController{
 
     async search(req,res){
         try {
-            const { nome } = req.body
+            const { nome } = req.query;
             if(nome){
                 const all = await Estabelecimento.findAll({
                     where:{
@@ -102,7 +102,8 @@ class EstabelecimentoController{
                 return res.json(all);
             }
             else{
-                return res.status(400).json({status:false});
+                const all = await Estabelecimento.findAll()    
+                return res.json(all);
             }            
         } catch (error) {
             return res.status(400).json({status:false});
